@@ -31,8 +31,8 @@
             this.btnInit = new System.Windows.Forms.Button();
             this.btnSelectCamra = new System.Windows.Forms.Button();
             this.comboxCamre = new System.Windows.Forms.ComboBox();
-            this.panelCamera = new System.Windows.Forms.Panel();
             this.btnStartCamera = new System.Windows.Forms.Button();
+            this.sdlPreview = new SDLPreview();
             this.SuspendLayout();
             // 
             // btnInit
@@ -66,13 +66,6 @@
             this.comboxCamre.Size = new System.Drawing.Size(247, 29);
             this.comboxCamre.TabIndex = 2;
             // 
-            // panelCamera
-            // 
-            this.panelCamera.Location = new System.Drawing.Point(53, 286);
-            this.panelCamera.Name = "panelCamera";
-            this.panelCamera.Size = new System.Drawing.Size(735, 432);
-            this.panelCamera.TabIndex = 3;
-            // 
             // btnStartCamera
             // 
             this.btnStartCamera.Location = new System.Drawing.Point(53, 219);
@@ -82,6 +75,11 @@
             this.btnStartCamera.Text = "启动摄像头";
             this.btnStartCamera.UseVisualStyleBackColor = true;
             this.btnStartCamera.Click += new System.EventHandler(this.btnStartCamera_Click);
+
+            this.sdlPreview.Location = new System.Drawing.Point(22, 12);
+            this.sdlPreview.Name = "sdl";
+            this.sdlPreview.Size = new System.Drawing.Size(766, 450);
+            this.sdlPreview.TabIndex = 0;
             // 
             // Form1
             // 
@@ -89,10 +87,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 730);
             this.Controls.Add(this.btnStartCamera);
-            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.comboxCamre);
             this.Controls.Add(this.btnSelectCamra);
             this.Controls.Add(this.btnInit);
+            this.Controls.Add(this.sdlPreview);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -104,8 +102,8 @@
         private System.Windows.Forms.Button btnInit;
         private System.Windows.Forms.Button btnSelectCamra;
         private System.Windows.Forms.ComboBox comboxCamre;
-        private System.Windows.Forms.Panel panelCamera;
         private System.Windows.Forms.Button btnStartCamera;
+        private SDLPreview sdlPreview;
     }
 }
 

@@ -9,6 +9,7 @@ namespace pjsua2_csharp_video_demo
 {
     public class DebugLog : LogWriter
     {
+        
         override public void write(LogEntry entry)
         {
             Debug.WriteLine($"{entry.level} - {entry.msg}");

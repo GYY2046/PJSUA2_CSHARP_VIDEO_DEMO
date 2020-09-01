@@ -53,7 +53,11 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="pj_csharp">
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="pj_csharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\pj_csharp\bin\x64\Debug\pj_csharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -80,6 +84,12 @@
     <Compile Include="ListItems.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDLPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SDLPreview.Designer.cs">
+      <DependentUpon>SDLPreview.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +102,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SDLPreview.resx">
+      <DependentUpon>SDLPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <Fakes Include="Fakes\pj_csharp.fakes" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

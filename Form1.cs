@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +15,8 @@ namespace pjsua2_csharp_video_demo
 {
     public partial class Form1 : Form
     {
+
+
         public static Endpoint ep;
         public Form1()
         {
@@ -27,8 +31,10 @@ namespace pjsua2_csharp_video_demo
         {
             ep = new Endpoint();
             ep.libCreate();
-
+            //LogConfig logConfig = new LogConfig();
+            
             EpConfig epConfig = new EpConfig();
+            epConfig.logConfig.level = 6;
             epConfig.logConfig.writer = new DebugLog();
 
             ep.libInit(epConfig);
@@ -72,17 +78,27 @@ namespace pjsua2_csharp_video_demo
 
             //preview.start(videoPreviewOpParam);
 
-            VideoPreview video = new VideoPreview((int)pjmedia_vid_dev_std_index.PJMEDIA_VID_DEFAULT_CAPTURE_DEV);            
+            //VideoPreview video = new VideoPreview((int)pjmedia_vid_dev_std_index.PJMEDIA_VID_DEFAULT_CAPTURE_DEV);           
+            var epdev = ep.vidDevManager().enumDev2();
+           
+            VideoPreview video = new VideoPreview(epdev[0].id);
             VideoPreviewOpParam videoPreviewOpParam = new VideoPreviewOpParam();
-            videoPreviewOpParam.rendId = (int)pjmedia_vid_dev_std_index.PJMEDIA_VID_DEFAULT_RENDER_DEV;
+            videoPreviewOpParam.rendId = epdev[1].id;//(int)pjmedia_vid_dev_std_index.PJMEDIA_VID_DEFAULT_RENDER_DEV;
+            videoPreviewOpParam.window = new VideoWindowHandle();
+            videoPreviewOpParam.window.handle = new WindowHandle();
+
+            //videoPreviewOpParam.window.type = new SWIGTYPE_p_pjmedia_vid_dev_hwnd_type((long)1);
+            videoPreviewOpParam.window.handle.setWindow(this.sdlPreview.Handle.ToInt64());
+            Debug.WriteLine(this.sdlPreview.Handle);
+            Debug.WriteLine(this.sdlPreview.Handle.ToInt64());
             videoPreviewOpParam.show = true;
 
             video.start(videoPreviewOpParam);
             var window = video.getVideoWindow();
             var videoList = ep.vidDevManager().enumDev2();
-      
+            var type = window.getInfo().winHandle.type;
             //var epdev = ep.vidDevManager().getOutputWindowFlags(-1);
-            window.Show(false);
+            //window.Show(false);
 
             MediaCoordinate coordinate = new MediaCoordinate();
             coordinate.x = 0;// this.panelCamera.Top;
@@ -90,14 +106,14 @@ namespace pjsua2_csharp_video_demo
             window.setPos(coordinate);
 
             MediaSize size = new MediaSize();
-            size.h = (uint)this.panelCamera.Height;
-            size.w = (uint)this.panelCamera.Width;
+            size.h = (uint)200;//this.panelCamera.Height;
+            size.w = (uint)200;//this.panelCamera.Width;
             window.setSize(size);
 
-            var intPtr = EmbedControl.FindWindow(null, "pjmedia-SDL video");
-            EmbedControl.SetParent(intPtr, this.panelCamera.Handle);
-            //window.getInfo().isNative = false;
-            window.Show(true);
+            //var intPtr = EmbedControl.FindWindow(null, "pjmedia-SDL video");
+            //EmbedControl.SetParent(intPtr, this.panelCamera.Handle);
+            ////window.getInfo().isNative = false;
+            //window.Show(true);
 
             window.Show(true);
             //window.setFullScreen(true);
